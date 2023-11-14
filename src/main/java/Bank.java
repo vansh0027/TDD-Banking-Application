@@ -32,4 +32,8 @@ public class Bank {
 		Account account = (Account) bank.get(id);
 		account.withdraw(id, amount);
 	}
+
+	public void remove(Integer id) {
+		bank.remove(id);
+	}
 }
