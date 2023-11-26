@@ -43,7 +43,7 @@ public class Validator {
 		}
 	}
 
-	public boolean uniqueidValid(String s) {
+	public boolean createIdValid(String s) {
 		String arr[] = s.split(" ");
 		if (arr[2].length() == 8) {
 			try {
@@ -87,7 +87,7 @@ public class Validator {
 		}
 	}
 
-	public boolean amountIsValid(String s) {
+	public boolean createAmountValid(String s) {
 		String arr[] = s.split(" ");
 
 		try {
@@ -104,23 +104,89 @@ public class Validator {
 
 	}
 
-	public boolean commandValid(String s) {
+	public boolean createCommandValid(String s) {
 		String arr[] = s.split(" ");
 		if (arr[1].equalsIgnoreCase("CD")) {
-			if (commandArguments(s) && createValid(s) && accountTypeValid(s) && uniqueidValid(s) && idIsUnique(s)
-					&& aprIsValid(s) && amountIsValid(s)) {
+			if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
+					&& aprIsValid(s) && createAmountValid(s)) {
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			if (commandArguments(s) && createValid(s) && accountTypeValid(s) && uniqueidValid(s) && idIsUnique(s)
+			if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
 					&& aprIsValid(s)) {
 				return true;
 			} else {
 				return false;
 			}
 
+		}
+	}
+
+	public boolean depositValid(String s) {
+		String arr[] = s.split(" ");
+		if (arr[0].equalsIgnoreCase("deposit")) {
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean depositIdValid(String s) {
+		String arr[] = s.split(" ");
+		if (arr[1].length() == 8) {
+			try {
+				Integer.parseInt(arr[1]);
+				return true;
+
+			} catch (Exception e) {
+				return false;
+			}
+
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean depositAmountValid(String s) {
+		String arr[] = s.split(" ");
+		double amount = Double.parseDouble(arr[2]);
+		if (depositIdValid(s)) {
+			Account account = (Account) Bank.getId(Integer.parseInt(arr[1]));
+			if (account instanceof Savings) {
+				if (amount >= 0 && amount <= 2500) {
+					return true;
+				} else {
+					return false;
+				}
+
+			} else if (account instanceof Checking) {
+				if (amount >= 0 && amount <= 1000) {
+					return true;
+				} else {
+					return false;
+				}
+
+			} else if (account instanceof CD) {
+				return false;
+
+			}
+
+		} else {
+			return false;
+		}
+		return false;
+
+	}
+
+	public boolean depositCommandValid(String s) {
+		if (depositValid(s) && depositIdValid(s) && depositAmountValid(s)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

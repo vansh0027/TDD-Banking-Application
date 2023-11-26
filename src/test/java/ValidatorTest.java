@@ -10,14 +10,14 @@ public class ValidatorTest {
 	public static final double SUM = 10.00;
 	public static final double APR = 0.6;
 	Validator validator;
-	Account account = new Checking((double) 0, APR);
+	Account checking = new Checking((double) 0, APR);
 	Account savings = new Savings((double) 0, APR);
 	Account cd = new CD(AMOUNT, APR);
 
 	@Test
 	void deleted_id_can_be_reused() {
 		Bank bank = new Bank();
-		bank.create(12345670, account);
+		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
 		bank.remove(12345670);
@@ -74,23 +74,23 @@ public class ValidatorTest {
 
 	@Test
 	void uniqueid_is_valid() {
-		assertTrue(validator.uniqueidValid("create checking 12345678 9"));
-		assertFalse(validator.uniqueidValid("create checking 1234567 9"));
-		assertFalse(validator.uniqueidValid("create savings 1234567 9"));
-		assertFalse(validator.uniqueidValid("create CD 1234567 9 1000"));
-		assertFalse(validator.uniqueidValid("create checking 12347655670 9"));
-		assertFalse(validator.uniqueidValid("create savings 12343455671 9"));
-		assertFalse(validator.uniqueidValid("create CD 12345643272 9 2000"));
-		assertFalse(validator.uniqueidValid("create CD A2345675 0 1000"));
-		assertFalse(validator.uniqueidValid("create checking A2345676 0"));
-		assertFalse(validator.uniqueidValid("create savings A2345677 0"));
+		assertTrue(validator.createIdValid("create checking 12345678 9"));
+		assertFalse(validator.createIdValid("create checking 1234567 9"));
+		assertFalse(validator.createIdValid("create savings 1234567 9"));
+		assertFalse(validator.createIdValid("create CD 1234567 9 1000"));
+		assertFalse(validator.createIdValid("create checking 12347655670 9"));
+		assertFalse(validator.createIdValid("create savings 12343455671 9"));
+		assertFalse(validator.createIdValid("create CD 12345643272 9 2000"));
+		assertFalse(validator.createIdValid("create CD A2345675 0 1000"));
+		assertFalse(validator.createIdValid("create checking A2345676 0"));
+		assertFalse(validator.createIdValid("create savings A2345677 0"));
 
 	}
 
 	@Test
 	void id_is_unique() {
 		Bank bank = new Bank();
-		bank.create(12345670, account);
+		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
 		assertFalse(validator.idIsUnique("create checking 12345670 9"));
@@ -124,27 +124,87 @@ public class ValidatorTest {
 
 	@Test
 	void amount_is_valid() {
-		assertTrue(validator.amountIsValid("create CD 32345677 8 1000"));
-		assertTrue(validator.amountIsValid("create CD 32345678 9 10000"));
-		assertFalse(validator.amountIsValid("create CD 32345679 9 11000"));
-		assertFalse(validator.amountIsValid("create CD 42345670 9 100"));
-		assertFalse(validator.amountIsValid("create CD 52345675 8 1000A"));
-		assertTrue(validator.amountIsValid("create CD 52345676 8 1000.87"));
-		assertFalse(validator.amountIsValid("create CD 52345675 8 -1000"));
+		assertTrue(validator.createAmountValid("create CD 32345677 8 1000"));
+		assertTrue(validator.createAmountValid("create CD 32345678 9 10000"));
+		assertFalse(validator.createAmountValid("create CD 32345679 9 11000"));
+		assertFalse(validator.createAmountValid("create CD 42345670 9 100"));
+		assertFalse(validator.createAmountValid("create CD 52345675 8 1000A"));
+		assertTrue(validator.createAmountValid("create CD 52345676 8 1000.87"));
+		assertFalse(validator.createAmountValid("create CD 52345675 8 -1000"));
 
 	}
 
 	@Test
-	void command_is_valid() {
-		assertTrue(validator.commandValid("create checking 12345670 9"));
-		assertTrue(validator.commandValid("create savings 12345671 9"));
-		assertTrue(validator.commandValid("create CD 12345672 9 2000"));
-		assertFalse(validator.commandValid("Create cD 1A345672 9 2000"));
-		assertFalse(validator.commandValid("create savings 12345671 9 89"));
-		assertFalse(validator.commandValid("Kreate CD 133456729 9 209070"));
-		assertFalse(validator.commandValid("create CD   62345679 9 1000"));
-		assertFalse(validator.commandValid("  create CD 72345679 9 1000"));
-		assertTrue(validator.commandValid("create CD 72345670 9 1000  "));
+	void create_command_is_valid() {
+		assertTrue(validator.createCommandValid("create checking 12345670 9"));
+		assertTrue(validator.createCommandValid("create savings 12345671 9"));
+		assertTrue(validator.createCommandValid("create CD 12345672 9 2000"));
+		assertFalse(validator.createCommandValid("Create cD 1A345672 9 2000"));
+		assertFalse(validator.createCommandValid("create savings 12345671 9 89"));
+		assertFalse(validator.createCommandValid("Kreate CD 133456729 9 209070"));
+		assertFalse(validator.createCommandValid("create CD   62345679 9 1000"));
+		assertFalse(validator.createCommandValid("  create CD 72345679 9 1000"));
+		assertTrue(validator.createCommandValid("create CD 72345670 9 1000  "));
+
+	}
+
+	@Test
+	void deposit_valid() {
+		assertTrue(validator.depositValid("deposit 12345670 1000"));
+		assertFalse(validator.depositValid("dposit 12345670 1000"));
+	}
+
+	@Test
+	void deposit_id_valid() {
+		assertTrue(validator.depositIdValid("deposit 12345670 1000"));
+		assertFalse(validator.depositIdValid("deposit 1234670 1000"));
+	}
+
+	@Test
+	void deposit_amount_valid() {
+		Bank bank = new Bank();
+		bank.create(12345670, checking);
+		bank.create(12345671, savings);
+		bank.create(12345672, cd);
+		assertTrue(validator.depositAmountValid("deposit 12345670 0"));
+		assertTrue(validator.depositAmountValid("deposit 12345670 500"));
+		assertTrue(validator.depositAmountValid("deposit 12345670 1000"));
+		assertTrue(validator.depositAmountValid("deposit 12345671 0"));
+		assertFalse(validator.depositAmountValid("deposit 1234571 0"));
+		assertTrue(validator.depositAmountValid("deposit 12345671 500"));
+		assertTrue(validator.depositAmountValid("deposit 12345671 2500"));
+		assertFalse(validator.depositAmountValid("deposit 12345670 -200"));
+		assertFalse(validator.depositAmountValid("deposit 12345670 1500"));
+		assertFalse(validator.depositAmountValid("deposit 12345671 -200"));
+		assertFalse(validator.depositAmountValid("deposit 12345671 2600"));
+		assertFalse(validator.depositAmountValid("deposit 12345672 2600"));
+
+	}
+
+	@Test
+	void deposit_command_is_valid() {
+		Bank bank = new Bank();
+		bank.create(12345670, checking);
+		bank.create(12345671, savings);
+		bank.create(12345672, cd);
+		assertTrue(validator.depositCommandValid("deposit 12345670 0"));
+		assertTrue(validator.depositCommandValid("deposit 12345670 500"));
+		assertTrue(validator.depositCommandValid("deposit 12345670 1000"));
+		assertTrue(validator.depositCommandValid("deposit 12345671 0"));
+		assertFalse(validator.depositCommandValid("deposit 1234571 0"));
+		assertTrue(validator.depositCommandValid("deposit 12345671 500"));
+		assertTrue(validator.depositCommandValid("deposit 12345671 2500"));
+		assertFalse(validator.depositCommandValid("deposit 12345670 -200"));
+		assertFalse(validator.depositCommandValid("deposit 12345670 1500"));
+		assertFalse(validator.depositCommandValid("deposit 12345671 -200"));
+		assertFalse(validator.depositCommandValid("deposit 12345671 2600"));
+		assertFalse(validator.depositCommandValid("deposit 12345672 2600"));
+		assertFalse(validator.depositCommandValid("  deposit 12345672 2600"));
+		assertFalse(validator.depositCommandValid("deposit   12345672 2600"));
+		assertFalse(validator.depositCommandValid("deposit 12345672 2600  "));
+		assertFalse(validator.depositCommandValid("depsit 12345672 2600"));
+		assertFalse(validator.depositCommandValid("deposit 1234672 2600"));
+		assertFalse(validator.depositCommandValid("deposit 1234567289 2500"));
 
 	}
 

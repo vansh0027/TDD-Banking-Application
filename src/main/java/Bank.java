@@ -13,7 +13,7 @@ public class Bank {
 		bank.put(id, account);
 	}
 
-	public static Object getID(int id) {
+	public static Object getId(int id) {
 		return (Account) bank.get(id);
 
 	}
