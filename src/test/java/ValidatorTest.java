@@ -13,10 +13,10 @@ public class ValidatorTest {
 	Account checking = new Checking((double) 0, APR);
 	Account savings = new Savings((double) 0, APR);
 	Account cd = new CD(AMOUNT, APR);
+	Bank bank;
 
 	@Test
 	void deleted_id_can_be_reused() {
-		Bank bank = new Bank();
 		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
@@ -42,7 +42,9 @@ public class ValidatorTest {
 
 	@BeforeEach
 	void setUp() {
-		validator = new Validator();
+		bank = new Bank();
+		validator = new Validator(bank);
+
 	}
 
 	@Test
@@ -136,15 +138,15 @@ public class ValidatorTest {
 
 	@Test
 	void create_command_is_valid() {
-		assertTrue(validator.createCommandValid("create checking 12345670 9"));
-		assertTrue(validator.createCommandValid("create savings 12345671 9"));
-		assertTrue(validator.createCommandValid("create CD 12345672 9 2000"));
-		assertFalse(validator.createCommandValid("Create cD 1A345672 9 2000"));
-		assertFalse(validator.createCommandValid("create savings 12345671 9 89"));
-		assertFalse(validator.createCommandValid("Kreate CD 133456729 9 209070"));
-		assertFalse(validator.createCommandValid("create CD   62345679 9 1000"));
-		assertFalse(validator.createCommandValid("  create CD 72345679 9 1000"));
-		assertTrue(validator.createCommandValid("create CD 72345670 9 1000  "));
+		assertTrue(validator.validateCommand("create checking 12345670 9"));
+		assertTrue(validator.validateCommand("create savings 12345671 9"));
+		assertTrue(validator.validateCommand("create CD 12345672 9 2000"));
+		assertFalse(validator.validateCommand("Create cD 1A345672 9 2000"));
+		assertFalse(validator.validateCommand("create savings 12345671 9 89"));
+		assertFalse(validator.validateCommand("Kreate CD 133456729 9 209070"));
+		assertFalse(validator.validateCommand("create CD   62345679 9 1000"));
+		assertFalse(validator.validateCommand("  create CD 72345679 9 1000"));
+		assertTrue(validator.validateCommand("create CD 72345670 9 1000  "));
 
 	}
 
