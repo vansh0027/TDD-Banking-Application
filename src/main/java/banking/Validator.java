@@ -1,3 +1,5 @@
+package banking;
+
 public class Validator {
 	Bank bank;
 
@@ -9,7 +11,7 @@ public class Validator {
 	Boolean commandArguments(String s) {
 		String arr[];
 		arr = s.split(" ");
-		if (arr[1].equalsIgnoreCase("CD")) {
+		if (arr[1].equalsIgnoreCase("banking.CD")) {
 			if (arr.length != 5) {
 				return false;
 			} else {
@@ -38,8 +40,8 @@ public class Validator {
 
 	public boolean accountTypeValid(String s) {
 		String arr[] = s.split(" ");
-		if (arr[1].equalsIgnoreCase("Checking") || arr[1].equalsIgnoreCase("Savings")
-				|| arr[1].equalsIgnoreCase("CD")) {
+		if (arr[1].equalsIgnoreCase("banking.Checking") || arr[1].equalsIgnoreCase("banking.Savings")
+				|| arr[1].equalsIgnoreCase("banking.CD")) {
 			return true;
 		} else {
 			return false;
@@ -110,7 +112,7 @@ public class Validator {
 	public boolean validateCommand(String s) {
 		String arr[] = s.split(" ");
 		if (createValid(s)) {
-			if (arr[1].equalsIgnoreCase("CD")) {
+			if (arr[1].equalsIgnoreCase("banking.CD")) {
 				if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
 						&& aprIsValid(s) && createAmountValid(s)) {
 					return true;

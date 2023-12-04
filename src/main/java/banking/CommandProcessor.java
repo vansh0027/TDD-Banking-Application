@@ -1,3 +1,5 @@
+package banking;
+
 public class CommandProcessor {
 	Bank bank;
 
@@ -10,14 +12,14 @@ public class CommandProcessor {
 		String arr[] = s.split(" ");
 		int id = Integer.parseInt(arr[2]);
 		double apr = Double.parseDouble(arr[3]);
-		if (arr[1].equalsIgnoreCase("Checking")) {
+		if (arr[1].equalsIgnoreCase("banking.Checking")) {
 			Account checking = new Checking(0.00, apr);
 			Bank.create(id, checking);
 
-		} else if (arr[1].equalsIgnoreCase("Savings")) {
+		} else if (arr[1].equalsIgnoreCase("banking.Savings")) {
 			Account savings = new Savings(0.0, apr);
 			Bank.create(id, savings);
-		} else if (arr[1].equalsIgnoreCase("CD")) {
+		} else if (arr[1].equalsIgnoreCase("banking.CD")) {
 			Account cd = new CD(Integer.parseInt(arr[4]), apr);
 			Bank.create(id, cd);
 		}

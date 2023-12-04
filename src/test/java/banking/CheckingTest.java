@@ -1,24 +1,27 @@
+package banking;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SavingTest {
+public class CheckingTest {
 	public static final Integer ID = 12345678;
+	public static final String ACCOUNT_TYPE = "checking";
 	public static final double AMOUNT = 100.00;
 	public static final double SUM = 10.00;
 	public static final double APR = 0.6;
-	Account savings;
+	Account checking;
 
 	@BeforeEach
 	void setUp() {
-		savings = new Savings(AMOUNT, APR);
-		Bank.create(ID, savings);
+		checking = new Checking(AMOUNT, APR);
+		Bank.create(ID, checking);
 	}
 
 	@Test
 	void default_amount_is_zero() {
-		assertEquals(0, savings.amount);
+		assertEquals(0, checking.amount);
 	}
 
 }

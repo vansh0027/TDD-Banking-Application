@@ -1,3 +1,5 @@
+package banking;
+
 public class Checking extends Account {
 	double amount;
 	double apr;

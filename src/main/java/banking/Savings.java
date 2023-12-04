@@ -1,3 +1,5 @@
+package banking;
+
 public class Savings extends Account {
 	double amount;
 	double apr;
