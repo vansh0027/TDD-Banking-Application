@@ -1,6 +1,9 @@
 public class Validator {
+	Bank bank;
 
-	Validator() {
+	Validator(Bank bank) {
+		this.bank = bank;
+
 	}
 
 	Boolean commandArguments(String s) {
@@ -104,24 +107,34 @@ public class Validator {
 
 	}
 
-	public boolean createCommandValid(String s) {
+	public boolean validateCommand(String s) {
 		String arr[] = s.split(" ");
-		if (arr[1].equalsIgnoreCase("CD")) {
-			if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
-					&& aprIsValid(s) && createAmountValid(s)) {
-				return true;
+		if (createValid(s)) {
+			if (arr[1].equalsIgnoreCase("CD")) {
+				if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
+						&& aprIsValid(s) && createAmountValid(s)) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				return false;
+				if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
+						&& aprIsValid(s)) {
+					return true;
+				} else {
+					return false;
+				}
+
 			}
-		} else {
-			if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
-					&& aprIsValid(s)) {
+		} else if (depositValid(s)) {
+			if (depositValid(s) && depositIdValid(s) && depositAmountValid(s)) {
 				return true;
 			} else {
 				return false;
 			}
 
 		}
+		return false;
 	}
 
 	public boolean depositValid(String s) {

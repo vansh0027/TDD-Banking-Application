@@ -31,4 +31,9 @@ public class CD extends Account {
 		Bank.create(id, account);
 
 	}
+
+	@Override
+	public double getAPR(Integer id) {
+		return ((CD) Bank.getId(id)).APR;
+	}
 }

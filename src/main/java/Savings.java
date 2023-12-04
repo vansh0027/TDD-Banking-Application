@@ -33,4 +33,9 @@ public class Savings extends Account {
 		}
 
 	}
+
+	@Override
+	public double getAPR(Integer id) {
+		return ((Savings) Bank.getId(id)).APR;
+	}
 }

@@ -32,4 +32,9 @@ public class Checking extends Account {
 
 		}
 	}
+
+	@Override
+	public double getAPR(Integer id) {
+		return ((Checking) Bank.getId(id)).APR;
+	}
 }
