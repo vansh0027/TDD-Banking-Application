@@ -11,7 +11,7 @@ public class Validator {
 	Boolean commandArguments(String s) {
 		String arr[];
 		arr = s.split(" ");
-		if (arr[1].equalsIgnoreCase("banking.CD")) {
+		if (arr[1].equalsIgnoreCase("CD")) {
 			if (arr.length != 5) {
 				return false;
 			} else {
@@ -40,8 +40,8 @@ public class Validator {
 
 	public boolean accountTypeValid(String s) {
 		String arr[] = s.split(" ");
-		if (arr[1].equalsIgnoreCase("banking.Checking") || arr[1].equalsIgnoreCase("banking.Savings")
-				|| arr[1].equalsIgnoreCase("banking.CD")) {
+		if (arr[1].equalsIgnoreCase("Checking") || arr[1].equalsIgnoreCase("Savings")
+				|| arr[1].equalsIgnoreCase("CD")) {
 			return true;
 		} else {
 			return false;
@@ -109,36 +109,6 @@ public class Validator {
 
 	}
 
-	public boolean validateCommand(String s) {
-		String arr[] = s.split(" ");
-		if (createValid(s)) {
-			if (arr[1].equalsIgnoreCase("banking.CD")) {
-				if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
-						&& aprIsValid(s) && createAmountValid(s)) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
-						&& aprIsValid(s)) {
-					return true;
-				} else {
-					return false;
-				}
-
-			}
-		} else if (depositValid(s)) {
-			if (depositValid(s) && depositIdValid(s) && depositAmountValid(s)) {
-				return true;
-			} else {
-				return false;
-			}
-
-		}
-		return false;
-	}
-
 	public boolean depositValid(String s) {
 		String arr[] = s.split(" ");
 		if (arr[0].equalsIgnoreCase("deposit")) {
@@ -204,4 +174,35 @@ public class Validator {
 			return false;
 		}
 	}
+
+	public boolean validateCommand(String s) {
+		String arr[] = s.split(" ");
+		if (createValid(s)) {
+			if (arr[1].equalsIgnoreCase("CD")) {
+				if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
+						&& aprIsValid(s) && createAmountValid(s)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (commandArguments(s) && createValid(s) && accountTypeValid(s) && createIdValid(s) && idIsUnique(s)
+						&& aprIsValid(s)) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+		} else if (depositValid(s)) {
+			if (depositValid(s) && depositIdValid(s) && depositAmountValid(s)) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+		return false;
+	}
+
 }

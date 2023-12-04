@@ -35,7 +35,7 @@ public class ValidatorTest {
 	void account_type_is_valid_in_command() {
 		assertTrue(validator.accountTypeValid("create CheCkinG 12345673 9"));
 		assertTrue(validator.accountTypeValid("create SaviNgS 12345674 9"));
-		assertTrue(validator.accountTypeValid("create banking.CD 12345675 9 2000"));
+		assertTrue(validator.accountTypeValid("create CD 12345675 9 2000"));
 		assertFalse(validator.accountTypeValid("create checkng 22345672 8"));
 		assertFalse(validator.accountTypeValid("create savigs 22345673 8"));
 		assertFalse(validator.accountTypeValid("create CDS 22345674 8 1000"));
@@ -51,15 +51,15 @@ public class ValidatorTest {
 
 	@Test
 	void command_length_is_right() {
-		assertTrue(validator.commandArguments("create banking.CD 12345672 9 2000"));
+		assertTrue(validator.commandArguments("create CD 12345672 9 2000"));
 		assertTrue(validator.commandArguments("create checking 12345670 9"));
-		assertTrue(validator.commandArguments("create banking.CD 12345672 9 2000"));
-		assertFalse(validator.commandArguments("create banking.CD 42345671 11"));
+		assertTrue(validator.commandArguments("create CD 12345672 9 2000"));
+		assertFalse(validator.commandArguments("create CD 42345671 11"));
 		assertFalse(validator.commandArguments("create checking 42345672"));
 		assertFalse(validator.commandArguments("create savings 42345673"));
 		assertFalse(validator.commandArguments("create savings 42345674 9 1600"));
 		assertFalse(validator.commandArguments("create savings 42345675 10 1788"));
-		assertFalse(validator.commandArguments("create banking.CD 42345676 10 1788 89"));
+		assertFalse(validator.commandArguments("create CD 42345676 10 1788 89"));
 
 	}
 
@@ -142,13 +142,13 @@ public class ValidatorTest {
 	void create_command_is_valid() {
 		assertTrue(validator.validateCommand("create checking 12345670 9"));
 		assertTrue(validator.validateCommand("create savings 12345671 9"));
-		assertTrue(validator.validateCommand("create banking.CD 12345672 9 2000"));
+		assertTrue(validator.validateCommand("create CD 12345672 9 2000"));
 		assertFalse(validator.validateCommand("Create cD 1A345672 9 2000"));
 		assertFalse(validator.validateCommand("create savings 12345671 9 89"));
-		assertFalse(validator.validateCommand("Kreate banking.CD 133456729 9 209070"));
-		assertFalse(validator.validateCommand("create banking.CD   62345679 9 1000"));
-		assertFalse(validator.validateCommand("  create banking.CD 72345679 9 1000"));
-		assertTrue(validator.validateCommand("create banking.CD 72345670 9 1000  "));
+		assertFalse(validator.validateCommand("Kreate CD 133456729 9 209070"));
+		assertFalse(validator.validateCommand("create CD   62345679 9 1000"));
+		assertFalse(validator.validateCommand("  create CD 72345679 9 1000"));
+		assertTrue(validator.validateCommand("create CD 72345670 9 1000  "));
 
 	}
 

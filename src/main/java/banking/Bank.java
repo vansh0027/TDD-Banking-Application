@@ -16,7 +16,7 @@ public class Bank {
 	}
 
 	public static Object getId(int id) {
-		return (Account) bank.get(id);
+		return bank.get(id);
 
 	}
 

@@ -36,7 +36,7 @@ public class CreateCommandProcessorTest {
 
 	@Test
 	void CD_account_is_created_as_specified() {
-		CommandProcessor.create("create banking.CD 12345678 9 2000");
+		CommandProcessor.create("create CD 12345678 9 2000");
 		assertTrue(Bank.bank.containsKey(ID));
 		assertTrue(Bank.bank.get(ID) instanceof CD);
 		assertEquals(9, ((Account) bank.getId(ID)).getAPR(ID));
