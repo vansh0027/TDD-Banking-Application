@@ -49,6 +49,7 @@ public class CreateValidator {
 
 	public boolean createIdValid(String s) {
 		String arr[] = s.split(" ");
+
 		if (arr[2].length() == 8) {
 			try {
 				Integer.parseInt(arr[2]);

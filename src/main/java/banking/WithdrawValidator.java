@@ -7,6 +7,15 @@ public class WithdrawValidator {
 		this.bank = bank;
 	}
 
+	public boolean commandArguments(String s) {
+		String arr[] = s.split(" ");
+		if (arr.length != 3) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public boolean withdrawValid(String s) {
 		String arr[] = s.split(" ");
 		if (arr[0].equalsIgnoreCase("withdraw")) {
@@ -16,17 +25,31 @@ public class WithdrawValidator {
 		}
 	}
 
+	public boolean accountExists(String s) {
+		int id = Integer.parseInt(s);
+		if (Bank.bank.containsKey(id)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public Boolean withdrawIdValid(String s) {
 		String arr[] = s.split(" ");
-		if (arr[1].length() == 8) {
-			try {
-				Integer.parseInt(arr[1]);
-				return true;
+		if (commandArguments(s) && accountExists(arr[1])) {
+			if (arr[1].length() == 8) {
+				try {
+					Integer.parseInt(arr[1]);
+					return true;
 
-			} catch (Exception e) {
+				} catch (Exception e) {
+					return false;
+				}
+
+			} else {
 				return false;
 			}
-
 		} else {
 			return false;
 		}
@@ -84,7 +107,8 @@ public class WithdrawValidator {
 	}
 
 	public boolean validate(String s) {
-		if (withdrawValid(s) && withdrawIdValid(s) && withdrawAmountValid(s) && withdrawTimeValid(s)) {
+		if (withdrawValid(s) && withdrawIdValid(s) && withdrawAmountValid(s) && withdrawTimeValid(s)
+				&& commandArguments(s)) {
 			return true;
 		} else {
 			return false;

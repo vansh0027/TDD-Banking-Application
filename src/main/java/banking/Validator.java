@@ -20,8 +20,13 @@ public class Validator {
 		} else if (arr[0].equalsIgnoreCase("withdraw")) {
 			WithdrawValidator validator = new WithdrawValidator(bank);
 			return validator.validate(s);
+		} else if (arr[0].equalsIgnoreCase("transfer")) {
+			TransferValidator validator = new TransferValidator(bank);
+			return validator.validate(s);
+
 		} else {
 			return false;
 		}
+
 	}
 }

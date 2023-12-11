@@ -32,6 +32,10 @@ public class DepositValidatorTest {
 
 	@Test
 	void deposit_id_valid() {
+		Bank bank = new Bank();
+		bank.create(12345670, checking);
+		bank.create(12345671, savings);
+		bank.create(12345672, cd);
 		assertTrue(validator.depositIdValid("deposit 12345670 1000"));
 		assertFalse(validator.depositIdValid("deposit 1234670 1000"));
 	}

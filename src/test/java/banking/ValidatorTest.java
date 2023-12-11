@@ -40,10 +40,10 @@ public class ValidatorTest {
 
 	@Test
 	void deposit_command_is_valid() {
-		Bank bank = new Bank();
 		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
+
 		assertTrue(validator.validate("deposit 12345670 0"));
 		assertTrue(validator.validate("deposit 12345670 500"));
 		assertTrue(validator.validate("deposit 12345670 1000"));
@@ -67,7 +67,6 @@ public class ValidatorTest {
 
 	@Test
 	void withdraw_amount_valid() {
-
 		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
@@ -90,6 +89,22 @@ public class ValidatorTest {
 		assertFalse(validator.validate("withdraw 12345671 -200"));
 		assertFalse(validator.validate("withdraw 12345671 2600"));
 		assertTrue(validator.validate("withdraw 12345672 2600"));
+
+	}
+
+	@Test
+	void transfer_command_is_valid() {
+		bank.create(12345670, checking);
+		bank.create(12345671, savings);
+		bank.create(12345672, cd);
+
+		assertTrue(validator.validate("transfer 12345670 12345671 400"));
+		assertTrue(validator.validate("transfer 12345670 12345671 0"));
+
+		assertTrue(validator.validate("transfer 12345671 12345670 1000"));
+		assertFalse(validator.validate("transfer 12345672 12345670 1000"));
+		assertFalse(validator.validate("transfer 12345671 12345672 1000"));
+		assertFalse(validator.validate("transfer 12345670 12345671 1000"));
 
 	}
 

@@ -17,17 +17,35 @@ public class DepositValidator {
 		}
 	}
 
+	public boolean accountExists(String s) {
+		int id = Integer.parseInt(s);
+		if (Bank.bank.containsKey(id)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public boolean depositIdValid(String s) {
 		String arr[] = s.split(" ");
-		if (arr[1].length() == 8) {
-			try {
-				Integer.parseInt(arr[1]);
-				return true;
+		if (commandArguments(s)) {
+			if (accountExists(arr[1])) {
+				if (arr[1].length() == 8) {
+					try {
+						Integer.parseInt(arr[1]);
+						return true;
 
-			} catch (Exception e) {
+					} catch (Exception e) {
+						return false;
+					}
+
+				} else {
+					return false;
+				}
+			} else {
 				return false;
 			}
-
 		} else {
 			return false;
 		}
@@ -65,8 +83,17 @@ public class DepositValidator {
 
 	}
 
+	public boolean commandArguments(String s) {
+		String arr[] = s.split(" ");
+		if (arr.length != 3) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public boolean validate(String s) {
-		if (depositValid(s) && depositIdValid(s) && depositAmountValid(s)) {
+		if (depositValid(s) && depositIdValid(s) && depositAmountValid(s) && commandArguments(s)) {
 			return true;
 		} else {
 			return false;

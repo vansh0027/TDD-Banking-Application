@@ -42,6 +42,9 @@ public class WithdrawValidatorTest {
 
 	@Test
 	void withdraw_id_valid() {
+		bank.create(12345670, checking);
+		bank.create(12345671, savings);
+		bank.create(12345672, cd);
 		assertTrue(validator.withdrawIdValid("deposit 12345670 1000"));
 		assertFalse(validator.withdrawIdValid("deposit 1234670 1000"));
 	}
@@ -99,5 +102,4 @@ public class WithdrawValidatorTest {
 		assertTrue(validator.withdrawAmountValid("withdraw 12345670 200"));
 		assertTrue(validator.withdrawAmountValid("withdraw 12345670 400"));
 	}
-
 }
