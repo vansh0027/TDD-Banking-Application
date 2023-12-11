@@ -11,11 +11,13 @@ public class SavingTest {
 	public static final double SUM = 10.00;
 	public static final double APR = 0.6;
 	Account savings;
+	Bank bank;
 
 	@BeforeEach
 	void setUp() {
+		bank = new Bank();
 		savings = new Savings(AMOUNT, APR);
-		Bank.create(ID, savings);
+		bank.create(ID, savings);
 	}
 
 	@Test

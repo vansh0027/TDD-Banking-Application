@@ -75,8 +75,8 @@ public class ValidatorTest {
 		assertTrue(validator.validate("withdraw 12345670 200"));
 		assertTrue(validator.validate("withdraw 12345670 400"));
 		assertTrue(validator.validate("withdraw 12345671 0"));
-		((Account) Bank.getId(12345671)).setTime(3);
-		((Account) Bank.getId(12345672)).setTime(12);
+		((Account) bank.getId(12345671)).setTime(3);
+		((Account) bank.getId(12345672)).setTime(12);
 		assertTrue(validator.validate("withdraw 12345671 500"));
 
 		assertTrue(validator.validate("withdraw 12345672 100"));

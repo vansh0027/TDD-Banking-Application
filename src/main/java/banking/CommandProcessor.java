@@ -1,6 +1,7 @@
 package banking;
 
 public class CommandProcessor {
+
 	Bank bank;
 
 	public CommandProcessor(Bank bank) {
@@ -8,38 +9,24 @@ public class CommandProcessor {
 
 	}
 
-	public static void create(String s) {
-		String arr[] = s.split(" ");
-		int id = Integer.parseInt(arr[2]);
-		double apr = Double.parseDouble(arr[3]);
-		if (arr[1].equalsIgnoreCase("Checking")) {
-			Account checking = new Checking(0.00, apr);
-			Bank.create(id, checking);
-
-		} else if (arr[1].equalsIgnoreCase("Savings")) {
-			Account savings = new Savings(0.0, apr);
-			Bank.create(id, savings);
-		} else if (arr[1].equalsIgnoreCase("CD")) {
-			Account cd = new CD(Integer.parseInt(arr[4]), apr);
-			Bank.create(id, cd);
-		}
-
-	}
-
-	public static void deposit(String s) {
-		String arr[] = s.split(" ");
-		int id = Integer.parseInt(arr[1]);
-		double amount = Double.parseDouble(arr[2]);
-		((Account) Bank.getId(id)).deposit(id, amount);
-
-	}
-
 	public void processCommand(String command) {
 		String arr[] = command.split(" ");
 		if (arr[0].equalsIgnoreCase("create")) {
-			create(command);
+			CreateCommandProcessor commandProcessor = new CreateCommandProcessor(bank);
+			commandProcessor.create(command);
 		} else if (arr[0].equalsIgnoreCase("deposit")) {
-			deposit(command);
+			DepositCommandProcessor commandProcessor = new DepositCommandProcessor(bank);
+			commandProcessor.deposit(command);
+		} else if (arr[0].equalsIgnoreCase("withdraw")) {
+			WithdrawCommandProcessor commandProcessor = new WithdrawCommandProcessor(bank);
+			commandProcessor.withdraw(command);
+		} else if (arr[0].equalsIgnoreCase("transfer")) {
+			TransferCommandProcessor commandProcessor = new TransferCommandProcessor(bank);
+			commandProcessor.transfer(command);
+		} else if (arr[0].equalsIgnoreCase("pass")) {
+			PassTimeProcessor commandProcessor = new PassTimeProcessor(bank);
+			commandProcessor.pass(command);
 		}
+
 	}
 }

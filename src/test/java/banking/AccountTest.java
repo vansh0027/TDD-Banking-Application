@@ -17,16 +17,18 @@ public class AccountTest {
 	Account checking;
 	Account savings;
 	Account cd;
+	Bank bank;
 
 	@BeforeEach
 	void setUp() {
+		bank = new Bank();
 		checking = new Checking(AMOUNT, APR);
 		savings = new Savings(AMOUNT, APR);
 		cd = new CD(AMOUNT, APR);
 
-		Bank.create(ID, cd);
-		Bank.create(ID2, savings);
-		Bank.create(ID3, checking);
+		bank.create(ID, cd);
+		bank.create(ID2, savings);
+		bank.create(ID3, checking);
 	}
 
 	@Test
@@ -39,9 +41,9 @@ public class AccountTest {
 
 	@Test
 	void deposit_in_account() {
-		savings.deposit(ID2, AMOUNT);
-		checking.deposit(ID3, AMOUNT);
-		cd.deposit(ID, AMOUNT);
+		savings.depositIn(ID2, AMOUNT);
+		checking.depositIn(ID3, AMOUNT);
+		cd.depositIn(ID, AMOUNT);
 		assertEquals((AMOUNT), savings.getAmount(ID2));
 		assertEquals(AMOUNT, checking.getAmount(ID3));
 		assertEquals(2 * AMOUNT, cd.getAmount(ID));
@@ -49,12 +51,12 @@ public class AccountTest {
 
 	@Test
 	void double_deposit_in_account() {
-		savings.deposit(ID2, AMOUNT);
-		checking.deposit(ID3, AMOUNT);
-		cd.deposit(ID, AMOUNT);
-		savings.deposit(ID2, AMOUNT);
-		checking.deposit(ID3, AMOUNT);
-		cd.deposit(ID, AMOUNT);
+		savings.depositIn(ID2, AMOUNT);
+		checking.depositIn(ID3, AMOUNT);
+		cd.depositIn(ID, AMOUNT);
+		savings.depositIn(ID2, AMOUNT);
+		checking.depositIn(ID3, AMOUNT);
+		cd.depositIn(ID, AMOUNT);
 		assertEquals((2 * AMOUNT), savings.getAmount(ID2));
 		assertEquals(2 * AMOUNT, checking.getAmount(ID3));
 		assertEquals(3 * AMOUNT, cd.getAmount(ID));
@@ -63,42 +65,41 @@ public class AccountTest {
 
 	@Test
 	void withdraw_from_account() {
-		savings.deposit(ID2, AMOUNT);
-		checking.deposit(ID3, AMOUNT);
-		cd.deposit(ID, AMOUNT);
-		savings.withdraw(ID2, SUM);
-		checking.withdraw(ID3, SUM);
-		cd.withdraw(ID, SUM);
+		savings.depositIn(ID2, AMOUNT);
+		checking.depositIn(ID3, AMOUNT);
+		cd.depositIn(ID, AMOUNT);
+		savings.withdrawFrom(ID2, SUM);
+		checking.withdrawFrom(ID3, SUM);
+		cd.withdrawFrom(ID, SUM);
 
 		assertEquals(90, savings.getAmount(ID2));
 		assertEquals(90, checking.getAmount(ID3));
-		assertEquals(190, cd.getAmount(ID));
 
 	}
 
 	@Test
 	void double_withdraw_from_account() {
-		savings.deposit(ID2, AMOUNT);
-		checking.deposit(ID3, AMOUNT);
-		cd.deposit(ID, AMOUNT);
-		savings.withdraw(ID2, SUM);
-		checking.withdraw(ID3, SUM);
-		cd.withdraw(ID, SUM);
-		savings.withdraw(ID2, SUM);
-		checking.withdraw(ID3, SUM);
-		cd.withdraw(ID, SUM);
+		savings.depositIn(ID2, AMOUNT);
+		checking.depositIn(ID3, AMOUNT);
+		cd.depositIn(ID, AMOUNT);
+		savings.withdrawFrom(ID2, SUM);
+		checking.withdrawFrom(ID3, SUM);
+		cd.withdrawFrom(ID, SUM);
+		savings.withdrawFrom(ID2, SUM);
+		checking.withdrawFrom(ID3, SUM);
+		cd.withdrawFrom(ID, SUM);
 
 		assertEquals(80, savings.getAmount(ID2));
 		assertEquals(80, checking.getAmount(ID3));
-		assertEquals(180, cd.getAmount(ID));
+
 	}
 
 	@Test
 	void account_amount_cannot_be_negative() {
 
-		savings.withdraw(ID2, AMOUNT);
-		checking.withdraw(ID3, AMOUNT);
-		cd.withdraw(ID, 2 * AMOUNT);
+		savings.withdrawFrom(ID2, AMOUNT);
+		checking.withdrawFrom(ID3, AMOUNT);
+		cd.withdrawFrom(ID, 2 * AMOUNT);
 		assertEquals(0, savings.getAmount(ID2));
 		assertEquals(0, checking.getAmount(ID3));
 		assertEquals(0, cd.getAmount(ID));

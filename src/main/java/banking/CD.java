@@ -5,17 +5,18 @@ public class CD extends Account {
 
 	CD(double amount, double apr) {
 		super(amount, apr);
+		super.accountType = "CD";
 
 	}
 
 	@Override
 	public double getAmount(Integer id) {
-		return ((CD) Bank.getId(id)).amount;
+		return (super.amount);
 	}
 
 	@Override
-	public void deposit(Integer id, double amount) {
-		((CD) bank.get(id)).amount = ((CD) bank.get(id)).amount + amount;
+	public void depositIn(Integer id, double amount) {
+		super.amount = super.amount + amount;
 
 	}
 
@@ -25,23 +26,15 @@ public class CD extends Account {
 	}
 
 	@Override
-	public void withdraw(Integer id, double amount) {
-		((CD) bank.get(id)).amount = ((CD) bank.get(id)).amount - amount;
-		if (((CD) bank.get(id)).amount <= 0.00) {
-			((CD) bank.get(id)).amount = 0;
+	public void withdrawFrom(Integer id, double amount) {
+		if (amount >= (super.amount)) {
+			super.amount = (super.amount - amount);
+		}
+		if ((super.amount <= 0.00)) {
+			super.amount = 0;
 
 		}
 
 	}
 
-	public void Create(Integer id, Account account) {
-
-		Bank.create(id, account);
-
-	}
-
-	@Override
-	public double getAPR(Integer id) {
-		return ((CD) Bank.getId(id)).APR;
-	}
 }

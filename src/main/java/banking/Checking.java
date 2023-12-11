@@ -7,12 +7,7 @@ public class Checking extends Account {
 
 	Checking(Double amount, double apr) {
 		super(0, apr);
-
-	}
-
-	public void Create(Integer id, Account account) {
-
-		Bank.create(id, account);
+		super.accountType = "Checking";
 
 	}
 
@@ -22,27 +17,18 @@ public class Checking extends Account {
 	}
 
 	@Override
-	public double getAmount(Integer id) {
-		return ((Checking) Bank.getId(id)).amount;
-	}
-
-	@Override
-	public void deposit(Integer id, double amount) {
-		((Checking) bank.get(id)).amount = ((Checking) bank.get(id)).amount + amount;
+	public void depositIn(Integer id, double amount) {
+		super.amount = super.amount + amount;
 
 	}
 
 	@Override
-	public void withdraw(Integer id, double amount) {
-		((Checking) bank.get(id)).amount = ((Checking) bank.get(id)).amount - amount;
-		if (((Checking) bank.get(id)).amount <= 0.00) {
-			((Checking) bank.get(id)).amount = 0;
+	public void withdrawFrom(Integer id, double amount) {
+		super.amount = super.amount - amount;
+		if (super.amount <= 0.00) {
+			super.amount = 0;
 
 		}
 	}
 
-	@Override
-	public double getAPR(Integer id) {
-		return ((Checking) Bank.getId(id)).APR;
-	}
 }

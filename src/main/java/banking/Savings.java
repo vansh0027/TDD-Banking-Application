@@ -8,6 +8,7 @@ public class Savings extends Account {
 
 	Savings(Double amount, double apr) {
 		super(0, apr);
+		super.accountType = "Savings";
 
 	}
 
@@ -28,36 +29,21 @@ public class Savings extends Account {
 		super.time = time;
 	}
 
-	public void Create(Integer id, Account account) {
-
-		Bank.create(id, account);
+	@Override
+	public void depositIn(Integer id, double amount) {
+		super.amount = super.amount + amount;
 
 	}
 
 	@Override
-	public double getAmount(Integer id) {
-		return ((Savings) Bank.getId(id)).amount;
-	}
-
-	@Override
-	public void deposit(Integer id, double amount) {
-		((Savings) bank.get(id)).amount = ((Savings) bank.get(id)).amount + amount;
-
-	}
-
-	@Override
-	public void withdraw(Integer id, double amount) {
-		((Savings) bank.get(id)).amount = ((Savings) bank.get(id)).amount - amount;
-		if (((Savings) bank.get(id)).amount <= 0.00) {
-			((Savings) bank.get(id)).amount = 0;
+	public void withdrawFrom(Integer id, double amount) {
+		super.amount = super.amount - amount;
+		if (super.amount <= 0.00) {
+			super.amount = 0;
 			changeWithdrawalStatus();
 
 		}
 
 	}
 
-	@Override
-	public double getAPR(Integer id) {
-		return ((Savings) Bank.getId(id)).APR;
-	}
 }

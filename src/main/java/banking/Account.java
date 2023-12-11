@@ -4,8 +4,8 @@ public abstract class Account extends Bank {
 
 	public double APR;
 	public double amount;
-
 	public int time = 0;
+	public String accountType;
 
 	Account(double amount, double Apr) {
 		this.amount = amount;
@@ -15,15 +15,37 @@ public abstract class Account extends Bank {
 	}
 
 	@Override
-	public abstract void deposit(Integer id, double amount);
+	public abstract void depositIn(Integer id, double amount);
 
 	public abstract void setTime(int time);
 
 	@Override
-	public abstract void withdraw(Integer id, double amount);
+	public abstract void withdrawFrom(Integer id, double amount);
 
-	public abstract double getAmount(Integer id);
+	@Override
+	public double getAmount(Integer id) {
+		return amount;
+	}
 
-	public abstract double getAPR(Integer id);
+	public double getAPR(Integer id) {
+		return this.APR;
+	}
+
+	public void passTimeCalc(Integer id, int months) {
+		time += months;
+		if (accountType.equalsIgnoreCase("CD")) {
+			for (int i = 0; i < months; i++) {
+				for (int j = 0; j < 4; j++) {
+					amount += ((APR / 100) / 12) * amount;
+
+				}
+			}
+		} else {
+			for (int i = 0; i < months; i++) {
+				amount += ((APR / 100) / 12) * amount;
+			}
+		}
+
+	}
 
 }

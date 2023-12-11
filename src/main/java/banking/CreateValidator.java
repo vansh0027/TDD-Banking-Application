@@ -67,7 +67,7 @@ public class CreateValidator {
 
 	public boolean idIsUnique(String s) {
 		String arr[] = s.split(" ");
-		if (Bank.bank.containsKey(Integer.parseInt(arr[2]))) {
+		if (bank.containsKey(Integer.parseInt(arr[2]))) {
 			return false;
 		} else {
 			return true;

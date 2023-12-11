@@ -19,7 +19,7 @@ public class DepositValidator {
 
 	public boolean accountExists(String s) {
 		int id = Integer.parseInt(s);
-		if (Bank.bank.containsKey(id)) {
+		if (bank.containsKey(id)) {
 			return true;
 		} else {
 			return false;
@@ -56,7 +56,7 @@ public class DepositValidator {
 		String arr[] = s.split(" ");
 		double amount = Double.parseDouble(arr[2]);
 		if (depositIdValid(s)) {
-			Account account = (Account) Bank.getId(Integer.parseInt(arr[1]));
+			Account account = (Account) bank.getId(Integer.parseInt(arr[1]));
 			if (account instanceof Savings) {
 				if (amount >= 0 && amount <= 2500) {
 					return true;

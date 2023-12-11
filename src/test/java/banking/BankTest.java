@@ -44,13 +44,13 @@ public class BankTest {
 	@Test
 	void correct_account_is_retrieved() {
 		bank.create(ID, account);
-		assertEquals(account, Bank.getId(ID));
+		assertEquals(account, bank.getId(ID));
 	}
 
 	@Test
 	void money_is_deposited_to_right_account() {
 		bank.create(SECOND_ID, account);
-		bank.deposit(SECOND_ID, AMOUNT);
+		bank.depositIn(SECOND_ID, AMOUNT);
 		assertEquals(AMOUNT, account.getAmount(SECOND_ID));
 
 	}
@@ -58,8 +58,8 @@ public class BankTest {
 	@Test
 	void money_is_withdrawn_from_right_account() {
 		bank.create(ID, account);
-		bank.deposit(ID, AMOUNT);
-		bank.withdraw(ID, SUM);
+		bank.depositIn(ID, AMOUNT);
+		bank.withdrawFrom(ID, SUM);
 		assertEquals(90, account.getAmount(ID));
 
 	}
@@ -67,8 +67,8 @@ public class BankTest {
 	@Test
 	void depositing_twice_through_bank() {
 		bank.create(SECOND_ID, account);
-		bank.deposit(SECOND_ID, AMOUNT);
-		bank.deposit(SECOND_ID, AMOUNT);
+		bank.depositIn(SECOND_ID, AMOUNT);
+		bank.depositIn(SECOND_ID, AMOUNT);
 		assertEquals(2 * AMOUNT, account.getAmount(SECOND_ID));
 
 	}
@@ -76,9 +76,9 @@ public class BankTest {
 	@Test
 	void withdrawing_twice_through_bank() {
 		bank.create(ID, account);
-		bank.deposit(ID, AMOUNT);
-		bank.withdraw(ID, SUM);
-		bank.withdraw(ID, SUM);
+		bank.depositIn(ID, AMOUNT);
+		bank.withdrawFrom(ID, SUM);
+		bank.withdrawFrom(ID, SUM);
 		assertEquals(80, account.getAmount(ID));
 
 	}

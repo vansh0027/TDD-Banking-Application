@@ -93,7 +93,7 @@ public class CreateValidatorTest {
 
 	@Test
 	void id_is_unique() {
-		Bank bank = new Bank();
+
 		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);

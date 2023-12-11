@@ -29,7 +29,7 @@ public class WithdrawValidatorTest {
 		bank.create(12345672, cd);
 
 		assertFalse(validator.withdrawTimeValid("withdraw 12345672 100"));
-		((Account) Bank.getId(12345672)).setTime(12);
+		((Account) bank.getId(12345672)).setTime(12);
 		assertTrue(validator.withdrawTimeValid("withdraw 12345672 100"));
 
 	}
@@ -80,7 +80,7 @@ public class WithdrawValidatorTest {
 		bank.create(12345671, savings);
 
 		assertTrue(validator.withdrawTimeValid("withdraw 12345671 1000"));
-		bank.withdraw(12345671, 1000);
+		bank.withdrawFrom(12345671, 1000);
 		assertFalse(validator.withdrawTimeValid("withdraw 12345671 1000"));
 
 	}
@@ -90,8 +90,8 @@ public class WithdrawValidatorTest {
 		bank.create(12345671, savings);
 
 		assertTrue(validator.withdrawTimeValid("withdraw 12345671 1000"));
-		bank.withdraw(12345671, 1000);
-		((Account) Bank.getId(12345671)).setTime(3);
+		bank.withdrawFrom(12345671, 1000);
+		((Account) bank.getId(12345671)).setTime(3);
 		assertTrue(validator.withdrawTimeValid("withdraw 12345671 1000"));
 
 	}

@@ -12,11 +12,13 @@ public class CDAccountsTest {
 	public static final double SUM = 10.00;
 	public static final double APR = 0.6;
 	Account cd;
+	Bank bank;
 
 	@BeforeEach
 	void setUp() {
+		bank = new Bank();
 		cd = new CD(AMOUNT, APR);
-		Bank.create(ID, cd);
+		bank.create(ID, cd);
 	}
 
 	@Test

@@ -32,7 +32,7 @@ public class DepositValidatorTest {
 
 	@Test
 	void deposit_id_valid() {
-		Bank bank = new Bank();
+
 		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
@@ -42,7 +42,7 @@ public class DepositValidatorTest {
 
 	@Test
 	void deposit_amount_valid() {
-		Bank bank = new Bank();
+
 		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
@@ -63,7 +63,7 @@ public class DepositValidatorTest {
 
 	@Test
 	void deposit_command_is_valid() {
-		Bank bank = new Bank();
+
 		bank.create(12345670, checking);
 		bank.create(12345671, savings);
 		bank.create(12345672, cd);
