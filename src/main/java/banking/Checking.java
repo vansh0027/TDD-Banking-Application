@@ -3,6 +3,7 @@ package banking;
 public class Checking extends Account {
 	double amount;
 	double apr;
+	int time;
 
 	Checking(Double amount, double apr) {
 		super(0, apr);
@@ -13,6 +14,11 @@ public class Checking extends Account {
 
 		Bank.create(id, account);
 
+	}
+
+	@Override
+	public void setTime(int time) {
+		this.time = time;
 	}
 
 	@Override

@@ -3,10 +3,29 @@ package banking;
 public class Savings extends Account {
 	double amount;
 	double apr;
+	int time;
+	boolean status = false;
 
 	Savings(Double amount, double apr) {
 		super(0, apr);
 
+	}
+
+	void changeWithdrawalStatus() {
+		this.status = !(this.status);
+
+	}
+
+	boolean getWithdrawalStatus() {
+		return this.status;
+	}
+
+	@Override
+	public void setTime(int time) {
+		if (time > super.time) {
+			status = false;
+		}
+		super.time = time;
 	}
 
 	public void Create(Integer id, Account account) {
@@ -31,6 +50,7 @@ public class Savings extends Account {
 		((Savings) bank.get(id)).amount = ((Savings) bank.get(id)).amount - amount;
 		if (((Savings) bank.get(id)).amount <= 0.00) {
 			((Savings) bank.get(id)).amount = 0;
+			changeWithdrawalStatus();
 
 		}
 

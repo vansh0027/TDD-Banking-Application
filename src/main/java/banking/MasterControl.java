@@ -16,7 +16,7 @@ public class MasterControl {
 
 	public List<String> start(List<String> input) {
 		for (String command : input) {
-			if (validator.validateCommand(command)) {
+			if (validator.validate(command)) {
 				commandProcessor.processCommand(command);
 
 			} else {

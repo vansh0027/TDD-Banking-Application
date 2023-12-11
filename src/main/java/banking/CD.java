@@ -1,6 +1,7 @@
 package banking;
 
 public class CD extends Account {
+	int time = 0;
 
 	CD(double amount, double apr) {
 		super(amount, apr);
@@ -16,6 +17,11 @@ public class CD extends Account {
 	public void deposit(Integer id, double amount) {
 		((CD) bank.get(id)).amount = ((CD) bank.get(id)).amount + amount;
 
+	}
+
+	@Override
+	public void setTime(int time) {
+		super.time = time;
 	}
 
 	@Override
