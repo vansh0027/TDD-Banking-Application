@@ -6,44 +6,50 @@ import java.util.List;
 
 public class Bank {
 
-	private final HashMap<Integer, Object> bank;
+	private final HashMap<String, Object> bank;
+	private final ArrayList<String> accountNumber = new ArrayList<>();;
 
 	Bank() {
-		bank = new HashMap<Integer, Object>();
+		bank = new HashMap<String, Object>();
 
 	}
 
-	public void create(int id, Account account) {
+	public ArrayList<String> getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void create(String id, Account account) {
 		bank.put(id, account);
+		accountNumber.add(id);
 	}
 
-	public Account getId(int id) {
+	public Account getId(String id) {
 		return (Account) bank.get(id);
 
 	}
 
-	HashMap<Integer, Object> getAccounts() {
+	HashMap<String, Object> getAccounts() {
 		return bank;
 	}
 
-	public double getAmount(Integer id) {
+	public double getAmount(String id) {
 		Account account = (Account) bank.get(id);
 		return ((Account) bank.get(id)).getAmount(id);
 	}
 
-	public void bankTransfer(int transferFrom, int transferTo, Double amount) {
+	public void bankTransfer(String transferFrom, String transferTo, Double amount) {
 		((Account) bank.get(transferTo)).depositIn(transferTo, amount);
 		((Account) bank.get(transferFrom)).withdrawFrom(transferFrom, amount);
 
 	}
 
-	public void depositIn(Integer id, double amount) {
+	public void depositIn(String id, double amount) {
 		Account account = (Account) bank.get(id);
 		account.depositIn(id, amount);
 
 	}
 
-	public void withdrawFrom(Integer id, double amount) {
+	public void withdrawFrom(String id, double amount) {
 		Account account = (Account) bank.get(id);
 		account.withdrawFrom(id, amount);
 	}
@@ -52,11 +58,13 @@ public class Bank {
 		return bank.size();
 	}
 
-	public void remove(Integer id) {
+	public void remove(String id) {
 		bank.remove(id);
+		accountNumber.remove(id);
+
 	}
 
-	public boolean containsKey(int id) {
+	public boolean containsKey(String id) {
 		if (bank.containsKey(id)) {
 			return true;
 
@@ -65,34 +73,37 @@ public class Bank {
 	}
 
 	void passTime(int time) {
-		List<Integer> accountsRemoved = new ArrayList<>();
-		for (Integer id : bank.keySet()) {
+		List<String> accountsRemoved = new ArrayList<>();
+		for (String id : bank.keySet()) {
 			Account account = ((Account) bank.get(id));
 			if (account.getAmount(id) == 0) {
 				accountsRemoved.add(id);
 				continue;
 			}
+			if (account.getAmount(id) < 100) {
+				account.withdrawFrom(id, 25);
+			}
+
 			account.passTimeCalc(id, time);
 
 		}
 
-		for (Integer id : accountsRemoved) {
+		for (String id : accountsRemoved) {
 			bank.remove(id);
+			accountNumber.remove(id);
 		}
 
 	}
 
-	public void transfer(Integer transferFrom, Integer transferTo, double amount) {
+	public void transfer(String transferFrom, String transferTo, double amount) {
 		double final_amount = amount;
-		if (final_amount > ((Account) bank.get(transferFrom)).getAmount(transferFrom)) {
+		if (final_amount > ((Account) bank.get(transferFrom)).getAmount(transferFrom))
 
-		}
 		{
 			final_amount = ((Account) bank.get(transferFrom)).getAmount(transferFrom);
 		}
 
-		((Account) bank.get(transferTo)).depositIn(transferTo, amount);
-		((Account) bank.get(transferFrom)).withdrawFrom(transferFrom, amount);
+		((Account) bank.get(transferTo)).depositIn(transferTo, final_amount);
+		((Account) bank.get(transferFrom)).withdrawFrom(transferFrom, final_amount);
 	}
-
 }

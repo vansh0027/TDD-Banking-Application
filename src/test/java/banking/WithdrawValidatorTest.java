@@ -26,10 +26,10 @@ public class WithdrawValidatorTest {
 
 	@Test
 	void withdraw_from_CD() {
-		bank.create(12345672, cd);
+		bank.create("12345672", cd);
 
 		assertFalse(validator.withdrawTimeValid("withdraw 12345672 100"));
-		((Account) bank.getId(12345672)).setTime(12);
+		((Account) bank.getId("12345672")).setTime(12);
 		assertTrue(validator.withdrawTimeValid("withdraw 12345672 100"));
 
 	}
@@ -42,9 +42,9 @@ public class WithdrawValidatorTest {
 
 	@Test
 	void withdraw_id_valid() {
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 		assertTrue(validator.withdrawIdValid("deposit 12345670 1000"));
 		assertFalse(validator.withdrawIdValid("deposit 1234670 1000"));
 	}
@@ -52,9 +52,9 @@ public class WithdrawValidatorTest {
 	@Test
 	void withdraw_amount_valid() {
 
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 		assertTrue(validator.withdrawAmountValid("withdraw 12345670 0"));
 		assertTrue(validator.withdrawAmountValid("withdraw 12345670 200"));
 		assertTrue(validator.withdrawAmountValid("withdraw 12345670 400"));
@@ -77,28 +77,28 @@ public class WithdrawValidatorTest {
 	@Test
 	void withdraw_from_saving_once_a_month() {
 
-		bank.create(12345671, savings);
+		bank.create("12345671", savings);
 
 		assertTrue(validator.withdrawTimeValid("withdraw 12345671 1000"));
-		bank.withdrawFrom(12345671, 1000);
+		bank.withdrawFrom("12345671", 1000);
 		assertFalse(validator.withdrawTimeValid("withdraw 12345671 1000"));
 
 	}
 
 	@Test
 	void withdraw_from_savings_twice_in_distinct_months() {
-		bank.create(12345671, savings);
+		bank.create("12345671", savings);
 
 		assertTrue(validator.withdrawTimeValid("withdraw 12345671 1000"));
-		bank.withdrawFrom(12345671, 1000);
-		((Account) bank.getId(12345671)).setTime(3);
+		bank.withdrawFrom("12345671", 1000);
+		((Account) bank.getId("12345671")).setTime(3);
 		assertTrue(validator.withdrawTimeValid("withdraw 12345671 1000"));
 
 	}
 
 	@Test
 	void withdraw_from_checking_twice_in_one_month() {
-		bank.create(12345670, checking);
+		bank.create("12345670", checking);
 		assertTrue(validator.withdrawAmountValid("withdraw 12345670 200"));
 		assertTrue(validator.withdrawAmountValid("withdraw 12345670 400"));
 	}

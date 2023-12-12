@@ -26,8 +26,8 @@ public class WithdrawValidator {
 	}
 
 	public boolean accountExists(String s) {
-		int id = Integer.parseInt(s);
-		if (bank.containsKey(id)) {
+
+		if (bank.containsKey(s)) {
 			return true;
 		} else {
 			return false;
@@ -59,7 +59,7 @@ public class WithdrawValidator {
 		String arr[] = s.split(" ");
 		double amount = Double.parseDouble(arr[2]);
 		if (withdrawIdValid(s)) {
-			Account account = (Account) bank.getId(Integer.parseInt(arr[1]));
+			Account account = (Account) bank.getId(arr[1]);
 			if (account instanceof Savings) {
 				if (amount >= 0 && amount <= 1000) {
 					return true;
@@ -91,7 +91,7 @@ public class WithdrawValidator {
 
 	public boolean withdrawTimeValid(String s) {
 		String arr[] = s.split(" ");
-		Account account = (Account) bank.getId(Integer.parseInt(arr[1]));
+		Account account = (Account) bank.getId(arr[1]);
 		int age = account.time;
 		if (account instanceof Savings) {
 			return !((Savings) account).getWithdrawalStatus();

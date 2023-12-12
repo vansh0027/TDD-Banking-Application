@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CheckingTest {
-	public static final Integer ID = 12345678;
+	public static final String ID = "12345678";
 	public static final String ACCOUNT_TYPE = "checking";
 	public static final double AMOUNT = 100.00;
 	public static final double SUM = 10.00;

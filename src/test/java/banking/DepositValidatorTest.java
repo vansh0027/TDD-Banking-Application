@@ -33,9 +33,9 @@ public class DepositValidatorTest {
 	@Test
 	void deposit_id_valid() {
 
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 		assertTrue(validator.depositIdValid("deposit 12345670 1000"));
 		assertFalse(validator.depositIdValid("deposit 1234670 1000"));
 	}
@@ -43,9 +43,9 @@ public class DepositValidatorTest {
 	@Test
 	void deposit_amount_valid() {
 
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 		assertTrue(validator.depositAmountValid("deposit 12345670 0"));
 		assertTrue(validator.depositAmountValid("deposit 12345670 500"));
 		assertTrue(validator.depositAmountValid("deposit 12345670 1000"));
@@ -64,9 +64,9 @@ public class DepositValidatorTest {
 	@Test
 	void deposit_command_is_valid() {
 
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 		assertTrue(validator.validate("deposit 12345670 0"));
 		assertTrue(validator.validate("deposit 12345670 500"));
 		assertTrue(validator.validate("deposit 12345670 1000"));

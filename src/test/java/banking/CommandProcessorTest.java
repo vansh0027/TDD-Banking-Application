@@ -11,7 +11,7 @@ public class CommandProcessorTest {
 	public final double AMOUNT = 2000;
 	public final double SUM = 10.00;
 	public final double APR = 1.0;
-	public final int ID = 12345678;
+	public final String ID = "12345678";
 	CommandProcessor commandProcessor;
 	Account checking = new Checking((double) 0, APR);;
 	Account savings = new Savings((double) 0, APR);
@@ -38,7 +38,7 @@ public class CommandProcessorTest {
 		bank.depositIn(ID, 60);
 		commandProcessor.processCommand("pass 1");
 		double amount = Math.round(checking.getAmount(ID) * 100.0) / 100.0;
-		assertEquals(60.05, amount);
+		assertEquals(35.03, amount);
 
 	}
 
@@ -140,10 +140,10 @@ public class CommandProcessorTest {
 	void transfer_between_two_savings_account() {
 		bank.create(ID, savings);
 		bank.depositIn(ID, 1000);
-		bank.create(12345789, savings1);
+		bank.create("12345789", savings1);
 		commandProcessor.processCommand("transfer 12345678 12345789 350");
 		assertEquals(650, ((Account) bank.getId(ID)).getAmount(ID));
-		assertEquals(350, (savings1.getAmount(12345789)));
+		assertEquals(350, (savings1.getAmount("12345789")));
 
 	}
 
@@ -151,10 +151,10 @@ public class CommandProcessorTest {
 	void transfer_from_savings_to_checking_account() {
 		bank.create(ID, savings);
 		bank.depositIn(ID, 1000);
-		bank.create(12345789, checking);
+		bank.create("12345789", checking);
 		commandProcessor.processCommand("transfer 12345678 12345789 350");
 		assertEquals(650, (savings.getAmount(ID)));
-		assertEquals(350, (checking.getAmount(12345789)));
+		assertEquals(350, (checking.getAmount("12345789")));
 
 	}
 
@@ -162,10 +162,10 @@ public class CommandProcessorTest {
 	void transfer_from_checking_to_saving_account() {
 		bank.create(ID, checking);
 		bank.depositIn(ID, 1000);
-		bank.create(12345789, savings);
+		bank.create("12345789", savings);
 		commandProcessor.processCommand("transfer 12345678 12345789 400");
 		assertEquals(600, checking.getAmount(ID));
-		assertEquals(400, savings.getAmount(12345789));
+		assertEquals(400, savings.getAmount("12345789"));
 
 	}
 
@@ -173,11 +173,11 @@ public class CommandProcessorTest {
 	void transfer_twice_between_2_accounts() {
 		bank.create(ID, checking);
 		bank.depositIn(ID, 1000);
-		bank.create(12345789, savings);
+		bank.create("12345789", savings);
 		commandProcessor.processCommand("transfer 12345678 12345789 400");
 		commandProcessor.processCommand("transfer 12345678 12345789 400");
 		assertEquals(200, checking.getAmount(ID));
-		assertEquals(800, savings.getAmount(12345789));
+		assertEquals(800, savings.getAmount("12345789"));
 
 	}
 

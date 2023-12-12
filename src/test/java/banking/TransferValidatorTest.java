@@ -22,9 +22,9 @@ public class TransferValidatorTest {
 		bank = new Bank();
 		validator = new TransferValidator(bank);
 
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 
 	}
 

@@ -26,12 +26,12 @@ public class CreateValidatorTest {
 
 	@Test
 	void deleted_id_can_be_reused() {
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
-		bank.remove(12345670);
-		bank.remove(12345671);
-		bank.remove(12345672);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
+		bank.remove("12345670");
+		bank.remove("12345671");
+		bank.remove("12345672");
 		assertTrue(validator.idIsUnique("create checking 12345670 9"));
 		assertTrue(validator.idIsUnique("create savings 12345671 9"));
 		assertTrue(validator.idIsUnique("create banking.CD 12345672 9 1000"));
@@ -94,9 +94,9 @@ public class CreateValidatorTest {
 	@Test
 	void id_is_unique() {
 
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 		assertFalse(validator.idIsUnique("create checking 12345670 9"));
 		assertFalse(validator.idIsUnique("create savings 12345671 9"));
 		assertFalse(validator.idIsUnique("create banking.CD 12345672 9 1000"));

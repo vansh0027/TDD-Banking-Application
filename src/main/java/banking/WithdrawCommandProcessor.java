@@ -9,7 +9,7 @@ public class WithdrawCommandProcessor {
 
 	public void withdraw(String command) {
 		String arr[] = command.split(" ");
-		int id = Integer.parseInt(arr[1]);
+		String id = arr[1];
 		double amount = Double.parseDouble(arr[2]);
 		((Account) bank.getId(id)).withdrawFrom(id, amount);
 

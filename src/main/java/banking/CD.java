@@ -5,17 +5,12 @@ public class CD extends Account {
 
 	CD(double amount, double apr) {
 		super(amount, apr);
-		super.accountType = "CD";
+		super.accountType = "Cd";
 
 	}
 
 	@Override
-	public double getAmount(Integer id) {
-		return (super.amount);
-	}
-
-	@Override
-	public void depositIn(Integer id, double amount) {
+	public void depositIn(String id, double amount) {
 		super.amount = super.amount + amount;
 
 	}
@@ -26,7 +21,7 @@ public class CD extends Account {
 	}
 
 	@Override
-	public void withdrawFrom(Integer id, double amount) {
+	public void withdrawFrom(String id, double amount) {
 		if (amount >= (super.amount)) {
 			super.amount = (super.amount - amount);
 		}

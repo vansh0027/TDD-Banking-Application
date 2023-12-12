@@ -30,8 +30,8 @@ public class TransferValidator {
 	}
 
 	public boolean accountExists(String s) {
-		int id = Integer.parseInt(s);
-		if (bank.containsKey(id)) {
+
+		if (bank.containsKey(s)) {
 			return true;
 		} else {
 			return false;
@@ -42,15 +42,14 @@ public class TransferValidator {
 	public boolean firstIdValid(String s) {
 		String arr[] = s.split(" ");
 
-		if ((bank.getId(Integer.parseInt(arr[1])) instanceof Savings)
-				|| (bank.getId(Integer.parseInt(arr[1])) instanceof Checking)) {
+		if ((bank.getId(arr[1]) instanceof Savings) || (bank.getId(arr[1]) instanceof Checking)) {
 			if (arr[1].length() == 8 && accountExists(arr[1])) {
 				return true;
 			} else {
 				return false;
 			}
 
-		} else if (bank.getId(Integer.parseInt(arr[1])) instanceof CD) {
+		} else if (bank.getId(arr[1]) instanceof CD) {
 			return false;
 		}
 		return false;
@@ -60,15 +59,14 @@ public class TransferValidator {
 	public boolean secondIdValid(String s) {
 		String arr[] = s.split(" ");
 
-		if ((bank.getId(Integer.parseInt(arr[2])) instanceof Savings)
-				|| (bank.getId(Integer.parseInt(arr[2])) instanceof Checking)) {
+		if ((bank.getId(arr[2]) instanceof Savings) || (bank.getId(arr[2]) instanceof Checking)) {
 			if (arr[1].length() == 8 && accountExists(arr[2])) {
 				return true;
 			} else {
 				return false;
 			}
 
-		} else if (bank.getId(Integer.parseInt(arr[2])) instanceof CD) {
+		} else if (bank.getId(arr[2]) instanceof CD) {
 			return false;
 		}
 		return false;

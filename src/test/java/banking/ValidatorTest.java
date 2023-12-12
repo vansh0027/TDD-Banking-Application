@@ -40,9 +40,9 @@ public class ValidatorTest {
 
 	@Test
 	void deposit_command_is_valid() {
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 
 		assertTrue(validator.validate("deposit 12345670 0"));
 		assertTrue(validator.validate("deposit 12345670 500"));
@@ -67,16 +67,16 @@ public class ValidatorTest {
 
 	@Test
 	void withdraw_amount_valid() {
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 
 		assertTrue(validator.validate("withdraw 12345670 0"));
 		assertTrue(validator.validate("withdraw 12345670 200"));
 		assertTrue(validator.validate("withdraw 12345670 400"));
 		assertTrue(validator.validate("withdraw 12345671 0"));
-		((Account) bank.getId(12345671)).setTime(3);
-		((Account) bank.getId(12345672)).setTime(12);
+		((Account) bank.getId("12345671")).setTime(3);
+		((Account) bank.getId("12345672")).setTime(12);
 		assertTrue(validator.validate("withdraw 12345671 500"));
 
 		assertTrue(validator.validate("withdraw 12345672 100"));
@@ -94,9 +94,9 @@ public class ValidatorTest {
 
 	@Test
 	void transfer_command_is_valid() {
-		bank.create(12345670, checking);
-		bank.create(12345671, savings);
-		bank.create(12345672, cd);
+		bank.create("12345670", checking);
+		bank.create("12345671", savings);
+		bank.create("12345672", cd);
 
 		assertTrue(validator.validate("transfer 12345670 12345671 400"));
 		assertTrue(validator.validate("transfer 12345670 12345671 0"));

@@ -30,13 +30,13 @@ public class Savings extends Account {
 	}
 
 	@Override
-	public void depositIn(Integer id, double amount) {
+	public void depositIn(String id, double amount) {
 		super.amount = super.amount + amount;
 
 	}
 
 	@Override
-	public void withdrawFrom(Integer id, double amount) {
+	public void withdrawFrom(String id, double amount) {
 		super.amount = super.amount - amount;
 		if (super.amount <= 0.00) {
 			super.amount = 0;

@@ -10,7 +10,7 @@ public class CreateCommandProcessor {
 
 	public void create(String s) {
 		String arr[] = s.split(" ");
-		int id = Integer.parseInt(arr[2]);
+		String id = arr[2];
 		double apr = Double.parseDouble(arr[3]);
 		if (arr[1].equalsIgnoreCase("Checking")) {
 			Account checking = new Checking(0.00, apr);

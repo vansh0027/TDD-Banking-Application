@@ -23,8 +23,13 @@ public class Validator {
 		} else if (arr[0].equalsIgnoreCase("transfer")) {
 			TransferValidator validator = new TransferValidator(bank);
 			return validator.validate(s);
+		} else if (arr[0].equalsIgnoreCase("pass")) {
+			PassTimeValidator validator = new PassTimeValidator((bank));
+			return validator.validate(s);
 
-		} else {
+		}
+
+		else {
 			return false;
 		}
 

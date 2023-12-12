@@ -34,4 +34,15 @@ public class PassTimeValidator {
 			return true;
 		}
 	}
+
+	public boolean validate(String s) {
+		String arr[] = s.split(" ");
+		if (monthsValid(s) && passValid(s) && command_arguments_are_right(s)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 }
