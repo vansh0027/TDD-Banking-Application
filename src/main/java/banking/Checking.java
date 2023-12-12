@@ -25,7 +25,7 @@ public class Checking extends Account {
 	@Override
 	public void withdrawFrom(String id, double amount) {
 		super.amount = super.amount - amount;
-		if (super.amount <= 0.00) {
+		if (super.amount < 0.00) {
 			super.amount = 0;
 
 		}

@@ -60,24 +60,20 @@ public class DepositValidator {
 			if (account instanceof Savings) {
 				if (amount >= 0 && amount <= 2500) {
 					return true;
-				} else {
-					return false;
 				}
+				return false;
 
 			} else if (account instanceof Checking) {
 				if (amount >= 0 && amount <= 1000) {
 					return true;
-				} else {
-					return false;
 				}
+				return false;
 
 			} else if (account instanceof CD) {
 				return false;
 
 			}
 
-		} else {
-			return false;
 		}
 		return false;
 

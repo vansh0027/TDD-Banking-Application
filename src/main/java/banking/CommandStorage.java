@@ -63,16 +63,8 @@ public class CommandStorage {
 
 	}
 
-	public List<String> getInvalidCommands() {
-		return invalidCommandList;
-
-	}
-
 	public void addInvalidCommand(String s) {
 		invalidCommandList.add(s);
 	}
 
-	public Map<String, List<String>> getValidCommandList() {
-		return validCommandList;
-	}
 }

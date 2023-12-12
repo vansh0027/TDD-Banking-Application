@@ -33,9 +33,8 @@ public class TransferValidator {
 
 		if (bank.containsKey(s)) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 
 	}
 

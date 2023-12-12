@@ -39,20 +39,13 @@ public class WithdrawValidator {
 		String arr[] = s.split(" ");
 		if (commandArguments(s) && accountExists(arr[1])) {
 			if (arr[1].length() == 8) {
-				try {
-					Integer.parseInt(arr[1]);
-					return true;
-
-				} catch (Exception e) {
-					return false;
-				}
+				return true;
 
 			} else {
 				return false;
 			}
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	public boolean withdrawAmountValid(String s) {
@@ -75,7 +68,7 @@ public class WithdrawValidator {
 				}
 
 			} else if (account instanceof CD) {
-				if (amount == account.amount || amount >= account.amount) {
+				if (amount >= account.amount) {
 					return true;
 				} else {
 					return false;
@@ -98,9 +91,8 @@ public class WithdrawValidator {
 		} else if (account instanceof CD) {
 			if (account.time >= 12 && (account.time % 12 == 0)) {
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 		}
 		return true;
 
@@ -110,8 +102,7 @@ public class WithdrawValidator {
 		if (withdrawValid(s) && withdrawIdValid(s) && withdrawAmountValid(s) && withdrawTimeValid(s)
 				&& commandArguments(s)) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 }
