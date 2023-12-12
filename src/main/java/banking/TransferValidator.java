@@ -14,18 +14,16 @@ public class TransferValidator {
 		String arr[] = s.split(" ");
 		if (arr.length != 4) {
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 	}
 
 	public boolean transferValid(String s) {
 		String arr[] = s.split(" ");
 		if (arr[0].equalsIgnoreCase("transfer")) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 
 	}
 
@@ -44,9 +42,8 @@ public class TransferValidator {
 		if ((bank.getId(arr[1]) instanceof Savings) || (bank.getId(arr[1]) instanceof Checking)) {
 			if (arr[1].length() == 8 && accountExists(arr[1])) {
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 
 		} else if (bank.getId(arr[1]) instanceof CD) {
 			return false;
@@ -82,9 +79,7 @@ public class TransferValidator {
 	public boolean validate(String s) {
 		if (amountIsValid(s) && firstIdValid(s) && secondIdValid(s) && transferValid(s) & commandArguments(s)) {
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
-
 }

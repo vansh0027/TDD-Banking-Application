@@ -34,12 +34,15 @@ public class Bank {
 
 	public double getAmount(String id) {
 		Account account = (Account) bank.get(id);
-		return ((Account) bank.get(id)).getAmount(id);
+
+		return account.getAmount(id);
 	}
 
 	public void bankTransfer(String transferFrom, String transferTo, Double amount) {
-		((Account) bank.get(transferTo)).depositIn(transferTo, amount);
-		((Account) bank.get(transferFrom)).withdrawFrom(transferFrom, amount);
+		Account accountTo = (Account) bank.get(transferTo);
+		Account accountFrom = (Account) bank.get(transferFrom);
+		accountTo.depositIn(transferTo, amount);
+		accountFrom.withdrawFrom(transferFrom, amount);
 
 	}
 

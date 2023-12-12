@@ -70,14 +70,11 @@ public class WithdrawValidator {
 			} else if (account instanceof CD) {
 				if (amount >= account.amount) {
 					return true;
-				} else {
-					return false;
 				}
+				return false;
 
 			}
 
-		} else {
-			return false;
 		}
 		return false;
 	}
